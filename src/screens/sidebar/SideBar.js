@@ -4,18 +4,12 @@ import {View, Text, Button, StyleSheet} from 'react-native';
 //container
 import ScreenContainer from '../../components/container/ScreenContainer'
 
-const Home = ({navigation}) => (
+const SideBar = ({navigation}) => (
     <ScreenContainer>
         <Text>
-            Home Page
+            SideBar
         </Text>
         <View>
-            <Button 
-                title="See More Item List"
-                onPress={() => navigation.push('ItemList', {name: "Items on Different Catagory"})}
-            />
-        </View>
-        <View style={{marginTop: 10}}>
             <Button 
                 title="Open Drawer"
                 onPress={() => navigation.toggleDrawer()}
@@ -24,4 +18,4 @@ const Home = ({navigation}) => (
     </ScreenContainer>
 )
 
-export default Home;
+export default SideBar;
