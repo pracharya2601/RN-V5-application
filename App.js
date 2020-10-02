@@ -1,9 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 //navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
+
+//authcontext
+ import {AuthContext} from './src/context/context';
 
 //loading splash
 import Splash from './src/screens/loading/Splash';
@@ -69,7 +72,24 @@ const TabsScreen = () => (
 const App = () => {
 
   const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState('sdhjkshdkjshdk')
+  const [userToken, setUserToken] = useState(null);
+
+  const authContext = useMemo(() => {
+    return {
+      signIn: () => {
+        setIsLoading(false),
+        setUserToken('dksjlksjdlksjdlkfs')
+      },
+      signUp: () => {
+        setIsLoading(false),
+        setUserToken('sdjkhskjdhkjsdhjks')
+      },
+      signOut: () => {
+        setIsLoading(false),
+        setUserToken(null)
+      },
+    }
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {
@@ -80,20 +100,22 @@ const App = () => {
   if(isLoading) return <Splash />
 
   return(
-    <NavigationContainer>
-      {userToken ? (
-        <Drawer.Navigator>
-          <Drawer.Screen name="Home" component={TabsScreen} />
-          <Drawer.Screen name="SideBar" component={SideBarStackScreen} />
-        </Drawer.Navigator>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {userToken ? (
+          <Drawer.Navigator>
+            <Drawer.Screen name="Home" component={TabsScreen} />
+            <Drawer.Screen name="SideBar" component={SideBarStackScreen} />
+          </Drawer.Navigator>
 
-      ): (
-        <AuthStack.Navigator>
-          <AuthStack.Screen name="SignIn" component={SignIn} options={{title: 'Sign In'}}/>
-          <AuthStack.Screen name="SignUp" component={SignUp} options={{title: 'Create Account'}}/>
-        </AuthStack.Navigator>
-      )}  
-    </NavigationContainer>
+        ): (
+          <AuthStack.Navigator>
+            <AuthStack.Screen name="SignIn" component={SignIn} options={{title: 'Sign In'}}/>
+            <AuthStack.Screen name="SignUp" component={SignUp} options={{title: 'Create Account'}}/>
+          </AuthStack.Navigator>
+        )}  
+      </NavigationContainer>
+    </AuthContext.Provider>
   )
 }
 
