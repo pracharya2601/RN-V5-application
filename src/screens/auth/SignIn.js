@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 //authcontext
@@ -6,18 +6,51 @@ import {AuthContext} from '../../context/context';
 
 //container 
 import ScreenContainer from '../../components/container/ScreenContainer';
+//form 
+import InputText from '../../components/forms/InputText';
+import CustomButton from '../../components/button/CustomButton';
+
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SignIn = ({navigation}) => {
+
     const {signIn} = useContext(AuthContext);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState({
+        usernameErrorMsg: '',
+        passwordErrorMsg: ''
+    })
+
+    const usernameIcon = <FontAwesome name="user-o" size={24} color="black" />
+    const passwordIcon = <MaterialCommunityIcons name="onepassword" size={24} color="black" />
     return (
         <ScreenContainer
             background="lightgrey"
         >
-            <Text>SignIn</Text>
+            <InputText 
+                type="text"
+                placeholder="Your Email"
+                value={email}
+                icon={usernameIcon} 
+                onInputChange={setEmail}
+                error={error.usernameErrorMsg ? true : false}
+            />
+
+            <InputText 
+                type="password"
+                placeholder="Password"
+                value={password}
+                icon={passwordIcon} 
+                onInputChange={setPassword}
+                error={error.passwordErrorMsg ? true : false}
+                showHideBtn
+            />
             <View style={styles.btnContainer}>
-                <Button 
+                <CustomButton 
                     title="Sign In"
-                    onPress={() => signIn()}
+                    onClick={() => signIn()}
                 />
             </View>
             <Text>Dont have a account ?</Text>
@@ -31,9 +64,7 @@ const SignIn = ({navigation}) => {
     )
 }
 const styles = StyleSheet.create({
-    btnContainer: {
-        margin: 10
-    }
+
 })
 
 export default SignIn;
