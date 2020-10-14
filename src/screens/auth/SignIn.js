@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 //authcontext
-import {AuthContext} from '../../context/context';
+import {AuthenticationContext} from '../../context/auth_context/auth_context';
 
 //container 
 import ScreenContainer from '../../components/container/ScreenContainer';
@@ -14,7 +14,7 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SignIn = ({navigation}) => {
 
-    const {signIn} = useContext(AuthContext);
+    const {signIn} = useContext(AuthenticationContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,6 +36,7 @@ const SignIn = ({navigation}) => {
                 icon={usernameIcon} 
                 onInputChange={setEmail}
                 error={error.usernameErrorMsg ? true : false}
+                errorText={error.usernameErrorMsg}
             />
 
             <InputText 
@@ -45,6 +46,7 @@ const SignIn = ({navigation}) => {
                 icon={passwordIcon} 
                 onInputChange={setPassword}
                 error={error.passwordErrorMsg ? true : false}
+                errorText={error.passwordErrorMsg}
                 showHideBtn
             />
             <View style={styles.btnContainer}>

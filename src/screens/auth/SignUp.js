@@ -2,13 +2,12 @@ import React, {useContext} from 'react';
 import {View, Button, Text, StyleSheet } from 'react-native';
 
 //authcontext
-import {AuthContext} from '../../context/context';
-
+import {AuthenticationContext} from '../../context/auth_context/auth_context';
 //container
 import ScreenContainer from '../../components/container/ScreenContainer';
 
 const SignUp = () => {
-    const {signUp} = useContext(AuthContext);
+    const {signUp} = useContext(AuthenticationContext);
     return (
         <ScreenContainer
             background="orange"
