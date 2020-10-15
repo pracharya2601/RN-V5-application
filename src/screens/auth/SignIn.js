@@ -27,8 +27,14 @@ const SignIn = ({navigation}) => {
     const passwordIcon = <MaterialCommunityIcons name="onepassword" size={24} color="black" />
     return (
         <ScreenContainer
-            background="lightgrey"
-        >
+            background="blue"
+        >   
+            <View style={styles.space} />
+            <ScreenContainer
+                halfscreen
+                background="white"
+                borderRadius = '10'
+            >
             <InputText 
                 type="text"
                 placeholder="Your Email"
@@ -62,11 +68,14 @@ const SignIn = ({navigation}) => {
             >
                 <Text style={{textAlign: 'center',fontSize: 13, color: 'blue'}}> Create Account</Text>
             </TouchableOpacity>
+            </ScreenContainer>
         </ScreenContainer>
     )
 }
 const styles = StyleSheet.create({
-
+    space: {
+        flex: 1,
+    }
 })
 
 export default SignIn;
