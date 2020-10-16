@@ -1,16 +1,30 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import {View, Text,TouchableOpacity } from 'react-native';
 
 //authcontext
 import {AuthenticationContext} from '../../context/auth_context/auth_context';
 
-//container 
-import ScreenContainer from '../../components/container/ScreenContainer';
-//form 
+import AuthScreenContainer from '../../components/container/AuthScreenContainer';
 import InputText from '../../components/forms/InputText';
 import CustomButton from '../../components/button/CustomButton';
 
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+const usernameIcon = <MaterialCommunityIcons name="email-outline" size={24} color="black" />
+const passwordIcon = <MaterialCommunityIcons name="onepassword" size={24} color="black" />
+
+const Btn = (props) => {
+    return (
+      <View style={{flexDirection: 'row', height: 25, marginTop: 8}}>
+        <Text style={{marginRight: 3, fontSize: 12, marginTop: 3}}>{props.description}</Text>
+        <TouchableOpacity
+          onPress={props.onPress}
+        >
+          <Text style={{fontSize: 16, color: 'blue'}}>{props.title}</Text>
+        </TouchableOpacity>
+      </View>
+  
+    )
+  }
 
 const SignIn = ({navigation}) => {
 
@@ -22,21 +36,17 @@ const SignIn = ({navigation}) => {
         usernameErrorMsg: '',
         passwordErrorMsg: ''
     })
-
-    const usernameIcon = <FontAwesome name="user-o" size={24} color="black" />
-    const passwordIcon = <MaterialCommunityIcons name="onepassword" size={24} color="black" />
     return (
-        <ScreenContainer
-            background="blue"
+        <AuthScreenContainer
+            logoHeader="EasyPezy"
+            source={require('../../../assets/logo.png')}
+            pageHeader="Login"
+            top="2"
+            footer="5"
         >   
-            <View style={styles.space} />
-            <ScreenContainer
-                halfscreen
-                background="white"
-                borderRadius = '10'
-            >
             <InputText 
                 type="text"
+                label="Email"
                 placeholder="Your Email"
                 value={email}
                 icon={usernameIcon} 
@@ -47,6 +57,7 @@ const SignIn = ({navigation}) => {
 
             <InputText 
                 type="password"
+                label="Password"
                 placeholder="Password"
                 value={password}
                 icon={passwordIcon} 
@@ -55,27 +66,14 @@ const SignIn = ({navigation}) => {
                 errorText={error.passwordErrorMsg}
                 showHideBtn
             />
-            <View style={styles.btnContainer}>
-                <CustomButton 
-                    title="Sign In"
-                    onClick={() => signIn()}
-                />
-            </View>
-            <Text>Dont have a account ?</Text>
-            <TouchableOpacity
-                style={{ width: '60%', height: 30, justifyContent: 'center', borderRadius: 5}}
-                onPress={() => navigation.push('SignUp')}
-            >
-                <Text style={{textAlign: 'center',fontSize: 13, color: 'blue'}}> Create Account</Text>
-            </TouchableOpacity>
-            </ScreenContainer>
-        </ScreenContainer>
+            <Btn onPress={() => navigation.push('ForgotPass')} title="Forgot Password ?"/>
+            <CustomButton 
+                title="Sign In"
+                onClick={() => signIn()}
+            />
+            <Btn onPress={() => navigation.push('SignUp')} title="Create Account" description="Dont have a account ?"/>
+        </AuthScreenContainer>
     )
 }
-const styles = StyleSheet.create({
-    space: {
-        flex: 1,
-    }
-})
 
 export default SignIn;

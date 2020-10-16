@@ -20,6 +20,10 @@ const AuthState = (props) => {
     setIsLoading(false),
     setUserToken(null)
   }
+  const forgotPass = () => {
+    setIsLoading(false),
+    console.log("auth context")
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,6 +41,7 @@ const AuthState = (props) => {
         signIn: signIn,
         signUp: signUp,
         signOut: signOut,
+        forgotPass: forgotPass,
       }}
     >
       {props.children}

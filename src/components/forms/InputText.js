@@ -4,7 +4,7 @@ import {View, TextInput, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import { Entypo } from '@expo/vector-icons'; 
 const InputText = (props) => {
   const [isPass, setIsPass] = useState(true)
-    const {value, icon, onInputChange, onTermSubmit, placeholder, type, showHideBtn, color, error, errorText} = props;
+    const {value, icon, onInputChange, onTermSubmit, placeholder, type, showHideBtn, color, error, errorText, label} = props;
 
     const password = type == 'password' ? true : false;
     const passViewIcon = isPass ? <Entypo name="eye-with-line" size={24} color="black" /> : <Entypo name="eye" size={24} color="red" />
@@ -33,6 +33,8 @@ const InputText = (props) => {
 
     return(
       <View style={styles.mainContainer}>
+        {label && <Text style={styles.labelText}>{label}</Text>}
+      <View style={styles.subContainer}>
         <View style={containerStyle}>
         {icon && (
           <View style={styles.iconView}>
@@ -66,29 +68,26 @@ const InputText = (props) => {
         ) : null}
         
       </View>
+      </View>
     )
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
+  mainContainer: {
+    width: '100%',
+  },
+  labelText: {
+    fontSize: 18,
+    marginVertical: 5
+  },
+  subContainer: {
       flexDirection: 'column',
       width: '100%',
     },
     container: {
-      height: 50,
+      height: 40,
       borderRadius: 5,
-      marginHorizontal: 10,
-      marginVertical: 10,
       flexDirection: 'row',
-      // shadowColor: "#000",
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 6,
-      // },
-      // shadowOpacity: 0.37,
-      // shadowRadius: 7.49,
-
-      // elevation: 4,
     },
     iconView: {
       height: '100%',
@@ -105,23 +104,13 @@ const styles = StyleSheet.create({
     },
     passViewIcon: {
       backgroundColor: '#f5f5f5',
-      paddingVertical: 10,
+      paddingVertical: 5,
       borderWidth: 1,
       paddingLeft: 8,
       paddingRight: 8,
       borderTopRightRadius:5,
       borderBottomRightRadius: 5,
-      
-      // borderRadius: 100,
-      // shadowColor: "#000",
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 6,
-      // },
-      // shadowOpacity: 0.37,
-      // shadowRadius: 7.49,
-
-      // elevation: 8,
+    
     },
     inputStyle: {
       flex: 1,
@@ -130,8 +119,8 @@ const styles = StyleSheet.create({
     },
     errorText: {
       marginHorizontal: 10,
-      marginTop: -8,
-      marginBottom: 12,
+      // marginTop: -8,
+      marginBottom: 8,
       color: 'red'
     }
 });
