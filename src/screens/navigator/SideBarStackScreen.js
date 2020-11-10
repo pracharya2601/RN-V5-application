@@ -3,6 +3,7 @@ import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 
 //sidebar
 import SideBar from '../sidebar/SideBar';
+import TabsScreen from './TabScreen';
 
 const SideBarStack = createStackNavigator();
 
